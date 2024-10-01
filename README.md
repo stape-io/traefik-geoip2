@@ -4,7 +4,7 @@
 
 # GeoIP2 Reader for Go
 
-This library reads MaxMind GeoIP2 databases.
+This library reads MaxMind GeoIP2 databases adapted for Yeagi interpreter and able to use in Traefik plugins.
 
 Inspired by [oschwald/geoip2-golang](https://github.com/oschwald/geoip2-golang).
 
