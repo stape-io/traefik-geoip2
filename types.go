@@ -1,24 +1,24 @@
-package geoip2
+package incsw
 
 const (
-	dataTypeExtended           = 0
-	dataTypePointer            = 1
-	dataTypeString             = 2
-	dataTypeFloat64            = 3
-	dataTypeBytes              = 4
-	dataTypeUint16             = 5
-	dataTypeUint32             = 6
-	dataTypeMap                = 7
-	dataTypeInt32              = 8
-	dataTypeUint64             = 9
-	dataTypeUint128            = 10
-	dataTypeSlice              = 11
-	dataTypeDataCacheContainer = 12
-	dataTypeEndMarker          = 13
-	dataTypeBool               = 14
-	dataTypeFloat32            = 15
+	dataTypeExtended = iota
+	dataTypePointer
+	dataTypeString
+	dataTypeFloat64
+	dataTypeBytes
+	dataTypeUint16
+	dataTypeUint32
+	dataTypeMap
+	dataTypeInt32
+	dataTypeUint64
+	dataTypeUint128
+	dataTypeSlice
+	dataTypeDataCacheContainer
+	dataTypeEndMarker
+	dataTypeBool
+	dataTypeFloat32
 
-	dataSectionSeparatorSize = 16
+	dataSectionSeparatorSize
 )
 
 type Continent struct {

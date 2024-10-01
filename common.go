@@ -1,4 +1,4 @@
-package geoip2
+package incsw
 
 import (
 	"encoding/binary"

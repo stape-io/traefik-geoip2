@@ -1,7 +1,7 @@
 // Test DB
 // https://github.com/maxmind/MaxMind-DB
 // https://db-ip.com/db/lite.php
-package geoip2
+package incsw
 
 import (
 	"net"
