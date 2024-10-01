@@ -1,3 +1,3 @@
-module github.com/IncSW/geoip2
+module github.com/stape-io/traefik-geoip2
 
-go 1.14
+go 1.22
