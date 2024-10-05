@@ -174,7 +174,7 @@ func readString(buffer []byte, offset uint) (string, uint, error) {
 	switch dataType {
 	case dataTypeString:
 		newOffset := offset + size
-		return b2s(buffer[offset:newOffset]), newOffset, nil
+		return string(buffer[offset:newOffset]), newOffset, nil
 	case dataTypePointer:
 		pointer, newOffset, err := readPointer(buffer, size, offset)
 		if err != nil {
@@ -187,7 +187,7 @@ func readString(buffer []byte, offset uint) (string, uint, error) {
 		if dataType != dataTypeString {
 			return "", 0, errors.New("invalid string pointer type: " + strconv.Itoa(int(dataType)))
 		}
-		return b2s(buffer[offset : offset+size]), newOffset, nil
+		return string(buffer[offset : offset+size]), newOffset, nil
 	default:
 		return "", 0, errors.New("invalid string type: " + strconv.Itoa(int(dataType)))
 	}
@@ -352,16 +352,7 @@ func bytesToUInt64WithPrefix(prefix uint64, buffer []byte) uint64 {
 	return 0
 }
 
-func bytesToFloat32(buffer []byte) float32 {
-	bits := binary.BigEndian.Uint32(buffer)
-	return math.Float32frombits(bits)
-}
-
 func bytesToFloat64(buffer []byte) float64 {
 	bits := binary.BigEndian.Uint64(buffer)
 	return math.Float64frombits(bits)
-}
-
-func b2s(value []byte) string {
-	return string(value)
 }

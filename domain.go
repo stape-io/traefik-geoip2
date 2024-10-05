@@ -10,7 +10,7 @@ func readDomainMap(result *Domain, buffer []byte, mapSize uint, offset uint) (ui
 		if err != nil {
 			return 0, err
 		}
-		switch b2s(key) {
+		switch string(key) {
 		case "domain":
 			result.Domain, offset, err = readString(buffer, offset)
 			if err != nil {
