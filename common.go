@@ -228,7 +228,7 @@ func readStringMapMap(buffer []byte, mapSize uint, offset uint) (map[string]stri
 	var err error
 	var dataType byte
 	var size uint
-	result := map[string]string{}
+	result := make(map[string]string, mapSize)
 	for i := uint(0); i < mapSize; i++ {
 		key, offset, err = readMapKey(buffer, offset)
 		if err != nil {
@@ -252,12 +252,10 @@ func readStringMapMap(buffer []byte, mapSize uint, offset uint) (map[string]stri
 				return nil, 0, errors.New("map key must be a string, got: " + strconv.Itoa(int(dataType)))
 			}
 			offset = newOffset
-			result[b2s(key)] = b2s(buffer[valueOffset : valueOffset+size])
+			result[string(key)] = string(buffer[valueOffset : valueOffset+size])
 		case dataTypeString:
-			newOffset := offset + size
-			value := b2s(buffer[offset:newOffset])
-			offset = newOffset
-			result[b2s(key)] = value
+			result[string(key)] = string(buffer[offset : offset+size])
+			offset += size
 		default:
 			return nil, 0, errors.New("invalid data type of key " + string(key) + ": " + strconv.Itoa(int(dataType)))
 		}
