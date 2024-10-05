@@ -174,7 +174,7 @@ func readString(buffer []byte, offset uint) (string, uint, error) {
 	switch dataType {
 	case dataTypeString:
 		newOffset := offset + size
-		return b2s(buffer[offset:newOffset]), newOffset, nil
+		return string(buffer[offset:newOffset]), newOffset, nil
 	case dataTypePointer:
 		pointer, newOffset, err := readPointer(buffer, size, offset)
 		if err != nil {
@@ -187,7 +187,7 @@ func readString(buffer []byte, offset uint) (string, uint, error) {
 		if dataType != dataTypeString {
 			return "", 0, errors.New("invalid string pointer type: " + strconv.Itoa(int(dataType)))
 		}
-		return b2s(buffer[offset : offset+size]), newOffset, nil
+		return string(buffer[offset : offset+size]), newOffset, nil
 	default:
 		return "", 0, errors.New("invalid string type: " + strconv.Itoa(int(dataType)))
 	}
@@ -228,7 +228,7 @@ func readStringMapMap(buffer []byte, mapSize uint, offset uint) (map[string]stri
 	var err error
 	var dataType byte
 	var size uint
-	result := map[string]string{}
+	result := make(map[string]string, mapSize)
 	for i := uint(0); i < mapSize; i++ {
 		key, offset, err = readMapKey(buffer, offset)
 		if err != nil {
@@ -252,12 +252,10 @@ func readStringMapMap(buffer []byte, mapSize uint, offset uint) (map[string]stri
 				return nil, 0, errors.New("map key must be a string, got: " + strconv.Itoa(int(dataType)))
 			}
 			offset = newOffset
-			result[b2s(key)] = b2s(buffer[valueOffset : valueOffset+size])
+			result[string(key)] = string(buffer[valueOffset : valueOffset+size])
 		case dataTypeString:
-			newOffset := offset + size
-			value := b2s(buffer[offset:newOffset])
-			offset = newOffset
-			result[b2s(key)] = value
+			result[string(key)] = string(buffer[offset : offset+size])
+			offset += size
 		default:
 			return nil, 0, errors.New("invalid data type of key " + string(key) + ": " + strconv.Itoa(int(dataType)))
 		}
@@ -354,16 +352,7 @@ func bytesToUInt64WithPrefix(prefix uint64, buffer []byte) uint64 {
 	return 0
 }
 
-func bytesToFloat32(buffer []byte) float32 {
-	bits := binary.BigEndian.Uint32(buffer)
-	return math.Float32frombits(bits)
-}
-
 func bytesToFloat64(buffer []byte) float64 {
 	bits := binary.BigEndian.Uint64(buffer)
 	return math.Float64frombits(bits)
-}
-
-func b2s(value []byte) string {
-	return string(value)
 }

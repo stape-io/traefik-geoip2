@@ -43,7 +43,7 @@ func readContinentMap(continent *Continent, buffer []byte, mapSize uint, offset 
 		if err != nil {
 			return 0, err
 		}
-		switch b2s(key) {
+		switch string(key) {
 		case "geoname_id":
 			continent.GeoNameID, offset, err = readUInt32(buffer, offset)
 			if err != nil {

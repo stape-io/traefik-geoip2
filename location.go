@@ -43,7 +43,7 @@ func readLocationMap(location *Location, buffer []byte, mapSize uint, offset uin
 		if err != nil {
 			return 0, err
 		}
-		switch b2s(key) {
+		switch string(key) {
 		case "latitude":
 			location.Latitude, offset, err = readFloat64(buffer, offset)
 			if err != nil {

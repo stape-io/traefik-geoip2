@@ -10,7 +10,7 @@ func readAnonymousIPMap(result *AnonymousIP, buffer []byte, mapSize uint, offset
 		if err != nil {
 			return 0, err
 		}
-		switch b2s(key) {
+		switch string(key) {
 		case "is_anonymous":
 			result.IsAnonymous, offset, err = readBool(buffer, offset)
 			if err != nil {
