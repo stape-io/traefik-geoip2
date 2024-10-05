@@ -85,7 +85,7 @@ func readSubdivisionMap(subdivision *Subdivision, buffer []byte, mapSize uint, o
 		if err != nil {
 			return 0, err
 		}
-		switch b2s(key) {
+		switch string(key) {
 		case "geoname_id":
 			subdivision.GeoNameID, offset, err = readUInt32(buffer, offset)
 			if err != nil {

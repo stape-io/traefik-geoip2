@@ -10,7 +10,7 @@ func readASNMap(result *ASN, buffer []byte, mapSize uint, offset uint) (uint, er
 		if err != nil {
 			return 0, err
 		}
-		switch b2s(key) {
+		switch string(key) {
 		case "autonomous_system_number":
 			result.AutonomousSystemNumber, offset, err = readUInt32(buffer, offset)
 			if err != nil {

@@ -43,7 +43,7 @@ func readPostalMap(postal *Postal, buffer []byte, mapSize uint, offset uint) (ui
 		if err != nil {
 			return 0, err
 		}
-		switch b2s(key) {
+		switch string(key) {
 		case "code":
 			postal.Code, offset, err = readString(buffer, offset)
 			if err != nil {
